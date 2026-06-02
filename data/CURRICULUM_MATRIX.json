@@ -1,0 +1,426 @@
+{
+  "schema_version": "1.0.0",
+  "_schema": {
+    "description": "Project Kumquat curriculum matrix. The `curriculum` array is the primary dataset; every object is one study module and is safe to map directly onto an LMS node or UI card.",
+    "module_object_fields": {
+      "phase_id": "integer (1-3) — which of the three curriculum phases this module belongs to",
+      "module_id": "string — dotted identifier, e.g. '2.3', stable for deep-linking",
+      "module_title": "string — English module title",
+      "engineering_analogue": "string — the Biology-as-a-Hardware-Stack framing for this module",
+      "bilingual_keywords": "array<{en:string, ar:string}> — EN/AR scientific term pairs",
+      "estimated_hours": "integer — recommended study hours",
+      "learning_objectives": "array<string> — measurable exit objectives",
+      "resource_urls": "array<{title:string, provider:string, url:string, type:string}> — verified external resources; UI should read `.url`"
+    },
+    "resource_type_enum": ["course", "reference", "guideline", "lecture", "article"]
+  },
+  "project": {
+    "name": "Project Kumquat",
+    "title": "The Engineer's Blueprint for Veterinary Medicine & Stray Triage",
+    "codename": "KUMQUAT",
+    "tagline": "Vet-level grounding for non-vets.",
+    "philosophy": "Biology-as-a-Hardware-Stack: organs are specialized sub-routines, the vascular network is fluid plumbing, and the immune system is a dynamic, multi-tier firewall. When a system goes down, we do not guess — we debug.",
+    "audience": ["field rescuers", "wildlife emergency responders", "bio-engineers", "logical problem-solvers"],
+    "primary_language": "en",
+    "secondary_language": "ar",
+    "license": "CC-BY-SA-4.0",
+    "disclaimer": "This curriculum does NOT replace a licensed Doctor of Veterinary Medicine (DVM). It provides vet-level grounding for non-vets. Every triage path terminates at professional veterinary handoff. Nothing here authorizes diagnosis, prescription, or surgery.",
+    "total_estimated_hours": 114,
+    "last_updated": "2026-06-03"
+  },
+  "phases": [
+    {
+      "phase_id": 1,
+      "phase_title": "Foundational Systems Architecture",
+      "phase_title_ar": "هندسة الأنظمة الأساسية",
+      "engineering_frame": "The specification sheet — the known-good operating parameters and the tissue-level production plants of the body.",
+      "summary": "Establish healthy baselines and locate where each blood-cell line is manufactured and filtered. You cannot detect a fault without first knowing the spec sheet.",
+      "estimated_hours": 36,
+      "module_ids": ["1.1", "1.2", "1.3", "1.4", "1.5"]
+    },
+    {
+      "phase_id": 2,
+      "phase_title": "Pathophysiology & System Fault Trees",
+      "phase_title_ar": "الفيزيولوجيا المرضية وأشجار أعطال النظام",
+      "engineering_frame": "Root-cause analysis — reading the crash logs and constructing fault trees from ingress to systemic collapse.",
+      "summary": "Model how viral, bacterial, and toxic payloads execute code-injection attacks that drive cellular degradation, immune wipe, gut-barrier breach, and secondary sepsis with liver shutdown.",
+      "estimated_hours": 48,
+      "module_ids": ["2.1", "2.2", "2.3", "2.4", "2.5"]
+    },
+    {
+      "phase_id": 3,
+      "phase_title": "Field Triage & Runtime Debugging",
+      "phase_title_ar": "الفرز الميداني وتصحيح الأخطاء أثناء التشغيل",
+      "engineering_frame": "Runtime debugging — a deterministic control loop executed live, under pressure, whose single exit condition is a clean handoff to a professional veterinarian.",
+      "summary": "Run a deterministic diagnostic loop on an animal in acute system failure: airway/breathing, thermal defense, capillary refill via the gum barrier, and fluid-collapse management before professional handoff.",
+      "estimated_hours": 30,
+      "module_ids": ["3.1", "3.2", "3.3", "3.4", "3.5"]
+    }
+  ],
+  "curriculum": [
+    {
+      "phase_id": 1,
+      "module_id": "1.1",
+      "module_title": "The Hardware Stack Overview",
+      "engineering_analogue": "Top-level system block diagram of the body and its sub-routines.",
+      "bilingual_keywords": [
+        { "en": "Body systems", "ar": "أجهزة الجسم" },
+        { "en": "Anatomy", "ar": "التشريح" },
+        { "en": "Physiology", "ar": "علم وظائف الأعضاء" },
+        { "en": "Homeostasis", "ar": "الاتزان الداخلي" }
+      ],
+      "estimated_hours": 6,
+      "learning_objectives": [
+        "Draw a top-level block diagram of the major organ sub-routines and the plumbing that connects them.",
+        "Define the Biology-as-a-Hardware-Stack vocabulary used throughout the curriculum.",
+        "Explain homeostasis as the system's closed-loop control target."
+      ],
+      "resource_urls": [
+        { "title": "EDIVET: Do you have what it takes to be a veterinarian?", "provider": "University of Edinburgh (Coursera)", "url": "https://www.coursera.org/learn/becoming-a-veterinarian", "type": "course" },
+        { "title": "Introductory Biology 7.016", "provider": "MIT OpenCourseWare", "url": "https://ocw.mit.edu/courses/7-016-introductory-biology-fall-2018/", "type": "course" },
+        { "title": "R(D)SVS Online Courses", "provider": "University of Edinburgh", "url": "https://www.ed.ac.uk/vet/jeanne-marchig-centre/cpd/online-courses", "type": "reference" }
+      ]
+    },
+    {
+      "phase_id": 1,
+      "module_id": "1.2",
+      "module_title": "Cellular Production Plants: Bone Marrow",
+      "engineering_analogue": "The body's primary manufacturing plant — the factory that builds the cellular workforce.",
+      "bilingual_keywords": [
+        { "en": "Bone marrow", "ar": "نخاع العظم" },
+        { "en": "Hematopoiesis", "ar": "تكوين الدم" },
+        { "en": "White blood cells", "ar": "خلايا الدم البيضاء" },
+        { "en": "Red blood cells", "ar": "خلايا الدم الحمراء" },
+        { "en": "Platelets", "ar": "الصفائح الدموية" }
+      ],
+      "estimated_hours": 8,
+      "learning_objectives": [
+        "Describe how bone marrow manufactures the three critical cell lines (RBCs, WBCs, platelets).",
+        "Explain why a high-mitosis core is a high-value target for cell-hijacking pathogens.",
+        "Relate the white-cell production rate to firewall (immune) capacity."
+      ],
+      "resource_urls": [
+        { "title": "Overview of the Hematopoietic System in Animals", "provider": "Merck Veterinary Manual", "url": "https://www.merckvetmanual.com/circulatory-system/hematopoietic-system-introduction/overview-of-hematopoietic-system-in-animals", "type": "reference" },
+        { "title": "Red Blood Cells in Animals", "provider": "Merck Veterinary Manual", "url": "https://www.merckvetmanual.com/circulatory-system/hematopoietic-system-introduction/red-blood-cells-in-animals", "type": "reference" },
+        { "title": "Platelets in Animals", "provider": "Merck Veterinary Manual", "url": "https://www.merckvetmanual.com/circulatory-system/hematopoietic-system-introduction/platelets-in-animals", "type": "reference" },
+        { "title": "Introduction to Biology 7.012", "provider": "MIT OpenCourseWare", "url": "https://ocw.mit.edu/courses/7-012-introduction-to-biology-fall-2004/", "type": "course" }
+      ]
+    },
+    {
+      "phase_id": 1,
+      "module_id": "1.3",
+      "module_title": "The Lymphatic Transit Network",
+      "engineering_analogue": "A low-pressure return bus / internal message bus running parallel to the main plumbing.",
+      "bilingual_keywords": [
+        { "en": "Lymphatic system", "ar": "الجهاز اللمفاوي" },
+        { "en": "Lymph", "ar": "السائل اللمفاوي" },
+        { "en": "Lymphatic vessels", "ar": "الأوعية اللمفاوية" },
+        { "en": "Immune system", "ar": "الجهاز المناعي" }
+      ],
+      "estimated_hours": 8,
+      "learning_objectives": [
+        "Trace the one-way flow of lymph from interstitial space back to circulation.",
+        "Contrast the low-pressure lymphatic return bus with the pressurized vascular loop.",
+        "Explain how the lymphatic network routes immune cells and antigens to checkpoints."
+      ],
+      "resource_urls": [
+        { "title": "Innate Immunity", "provider": "Khan Academy", "url": "https://www.khanacademy.org/test-prep/mcat/organ-systems/the-immune-system/a/innate-immunity", "type": "article" },
+        { "title": "Cellular and Molecular Immunology (HST.176)", "provider": "MIT OpenCourseWare", "url": "https://ocw.mit.edu/courses/hst-176-cellular-and-molecular-immunology-fall-2005/", "type": "course" },
+        { "title": "Overview of Leukocyte Disorders in Animals", "provider": "Merck Veterinary Manual", "url": "https://www.merckvetmanual.com/circulatory-system/leukocyte-disorders/overview-of-leukocyte-disorders-in-animals", "type": "reference" }
+      ]
+    },
+    {
+      "phase_id": 1,
+      "module_id": "1.4",
+      "module_title": "Localized Filter Checkpoints: Lymph Nodes",
+      "engineering_analogue": "The firewall's inspection checkpoints — packet-filtering nodes on the transit bus.",
+      "bilingual_keywords": [
+        { "en": "Lymph node", "ar": "عقدة ليمفاوية" },
+        { "en": "Immune checkpoint", "ar": "نقطة تفتيش مناعية" },
+        { "en": "Antigen", "ar": "مستضد" },
+        { "en": "Antibody", "ar": "جسم مضاد" }
+      ],
+      "estimated_hours": 6,
+      "learning_objectives": [
+        "Locate the major lymph-node clusters and read a reactive node as a status flag on physical exam.",
+        "Describe antigen screening and the activation of an adaptive response at the node.",
+        "Explain why node enlargement signals active threat processing."
+      ],
+      "resource_urls": [
+        { "title": "Adaptive Immunity", "provider": "Khan Academy", "url": "https://www.khanacademy.org/test-prep/mcat/organ-systems/the-immune-system/a/adaptive-immunity", "type": "article" },
+        { "title": "Lecture 22: Immunology 1", "provider": "MIT OpenCourseWare (7.012)", "url": "https://ocw.mit.edu/courses/7-012-introduction-to-biology-fall-2004/resources/lecture-22-immunology-1/", "type": "lecture" },
+        { "title": "Lecture 23: Immunology 2", "provider": "MIT OpenCourseWare (7.012)", "url": "https://ocw.mit.edu/courses/7-012-introduction-to-biology-fall-2004/resources/lecture-23-immunology-2/", "type": "lecture" }
+      ]
+    },
+    {
+      "phase_id": 1,
+      "module_id": "1.5",
+      "module_title": "Healthy Operating Parameters",
+      "engineering_analogue": "The specification sheet — the known-good baseline readings against which all faults are measured.",
+      "bilingual_keywords": [
+        { "en": "Vital signs", "ar": "العلامات الحيوية" },
+        { "en": "Heart rate", "ar": "معدل ضربات القلب" },
+        { "en": "Respiratory rate", "ar": "معدل التنفس" },
+        { "en": "Body temperature", "ar": "درجة حرارة الجسم" },
+        { "en": "Capillary refill time", "ar": "زمن امتلاء الشعيرات الدموية" },
+        { "en": "Mucous membranes", "ar": "الأغشية المخاطية" }
+      ],
+      "estimated_hours": 8,
+      "learning_objectives": [
+        "Recite normal feline baselines (temperature, heart rate, respiratory rate, CRT, mucous-membrane color) from memory.",
+        "Note key canine baseline differences relevant to field work.",
+        "Identify a reading that has drifted out of specification."
+      ],
+      "resource_urls": [
+        { "title": "Initial Triage and Resuscitation of Small Animal Emergency Patients", "provider": "Merck Veterinary Manual", "url": "https://www.merckvetmanual.com/emergency-medicine-and-critical-care/evaluation-and-initial-treatment-of-small-animal-emergency-patients/initial-triage-and-resuscitation-of-small-animal-emergency-patients", "type": "reference" },
+        { "title": "Cornell Feline Health Center", "provider": "Cornell University College of Veterinary Medicine", "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center", "type": "reference" },
+        { "title": "EDIVET: Do you have what it takes to be a veterinarian?", "provider": "University of Edinburgh (Coursera)", "url": "https://www.coursera.org/learn/becoming-a-veterinarian", "type": "course" }
+      ]
+    },
+    {
+      "phase_id": 2,
+      "module_id": "2.1",
+      "module_title": "Threat Model: Viral, Bacterial & Toxic Payloads",
+      "engineering_analogue": "Enumerating the attack surface — three payload classes, each with a distinct attack signature.",
+      "bilingual_keywords": [
+        { "en": "Pathogen", "ar": "العامل الممرض" },
+        { "en": "Virus", "ar": "فيروس" },
+        { "en": "Bacteria", "ar": "بكتيريا" },
+        { "en": "Toxin", "ar": "السموم" }
+      ],
+      "estimated_hours": 8,
+      "learning_objectives": [
+        "Classify an insult as viral (code injection), bacterial (resource hijack), or toxic (corrosive input).",
+        "Match each payload class to its characteristic damage pattern.",
+        "Explain why toxic payloads do not replicate while viral payloads do."
+      ],
+      "resource_urls": [
+        { "title": "Introductory Biology 7.016 (Infectious Disease, Viruses, Bacteria)", "provider": "MIT OpenCourseWare", "url": "https://ocw.mit.edu/courses/7-016-introductory-biology-fall-2018/", "type": "course" },
+        { "title": "Innate Immunity", "provider": "Khan Academy", "url": "https://www.khanacademy.org/test-prep/mcat/organ-systems/the-immune-system/a/innate-immunity", "type": "article" },
+        { "title": "Feline Panleukopenia", "provider": "Merck Veterinary Manual", "url": "https://www.merckvetmanual.com/generalized-conditions/feline-panleukopenia/feline-panleukopenia", "type": "reference" }
+      ]
+    },
+    {
+      "phase_id": 2,
+      "module_id": "2.2",
+      "module_title": "Code-Injection Mechanics: How Pathogens Hijack Cells",
+      "engineering_analogue": "A malicious instruction set that commandeers host hardware to run and self-replicate.",
+      "bilingual_keywords": [
+        { "en": "Viral infection", "ar": "العدوى الفيروسية" },
+        { "en": "Viral replication", "ar": "التكاثر الفيروسي" },
+        { "en": "Host cell", "ar": "الخلية المضيفة" },
+        { "en": "Cell division (mitosis)", "ar": "انقسام الخلية" }
+      ],
+      "estimated_hours": 10,
+      "learning_objectives": [
+        "Describe the bind → inject → redirect → rupture cycle of a virus inside a host cell.",
+        "Explain why division-dependent viruses preferentially target high-mitosis cores.",
+        "Connect code-injection mechanics to the Phase 1 production plants at risk."
+      ],
+      "resource_urls": [
+        { "title": "Introduction to Biology 7.012 (Virology)", "provider": "MIT OpenCourseWare", "url": "https://ocw.mit.edu/courses/7-012-introduction-to-biology-fall-2004/", "type": "course" },
+        { "title": "Adaptive Immunity", "provider": "Khan Academy", "url": "https://www.khanacademy.org/test-prep/mcat/organ-systems/the-immune-system/a/adaptive-immunity", "type": "article" },
+        { "title": "Feline Panleukopenia", "provider": "MSD Veterinary Manual", "url": "https://www.msdvetmanual.com/digestive-system/infectious-diseases-of-the-gastrointestinal-tract-in-small-animals/feline-panleukopenia", "type": "reference" }
+      ]
+    },
+    {
+      "phase_id": 2,
+      "module_id": "2.3",
+      "module_title": "Immune Wipe: Feline Panleukopenia",
+      "engineering_analogue": "The archetypal immune-wipe attack — the firewall's manufacturing plant taken offline.",
+      "bilingual_keywords": [
+        { "en": "Feline panleukopenia", "ar": "طاعون القطط الفيروسي" },
+        { "en": "Feline parvovirus", "ar": "الفيروس الصغير السنوري" },
+        { "en": "Panleukopenia (total leukopenia)", "ar": "نقص الكريات البيض الشامل" },
+        { "en": "Vaccination", "ar": "التطعيم" }
+      ],
+      "estimated_hours": 12,
+      "learning_objectives": [
+        "Explain how FPV targets bone marrow, intestinal crypts, and lymphoid tissue simultaneously.",
+        "Define panleukopenia as a collapse across all white-cell lines.",
+        "Summarize prevention through core vaccination per current guidelines."
+      ],
+      "resource_urls": [
+        { "title": "Feline Panleukopenia", "provider": "Merck Veterinary Manual", "url": "https://www.merckvetmanual.com/generalized-conditions/feline-panleukopenia/feline-panleukopenia", "type": "reference" },
+        { "title": "Feline Infectious Enteritis (Parvovirus / Panleukopenia Virus)", "provider": "International Cat Care", "url": "https://icatcare.org/articles/feline-infectious-enteritis-feline-parvovirus-panleukopenia-virus", "type": "article" },
+        { "title": "Guideline for Feline Panleukopenia", "provider": "ABCD (European Advisory Board on Cat Diseases)", "url": "https://www.abcdcatsvets.org/guideline-for-feline-panleukopenia/", "type": "guideline" },
+        { "title": "Feline Vaccines: Benefits and Risks", "provider": "Cornell Feline Health Center", "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feline-vaccines-benefits-and-risks", "type": "reference" },
+        { "title": "Feline Panleukopenia (Pet Owner Resource)", "provider": "American Veterinary Medical Association (AVMA)", "url": "https://www.avma.org/resources-tools/pet-owners/petcare/feline-panleukopenia", "type": "article" }
+      ]
+    },
+    {
+      "phase_id": 2,
+      "module_id": "2.4",
+      "module_title": "Gut-Barrier Breach & Bacterial Translocation",
+      "engineering_analogue": "A breached perimeter wall — intrusion across the I/O membrane exactly when the firewall is down.",
+      "bilingual_keywords": [
+        { "en": "Intestinal barrier", "ar": "حاجز الأمعاء" },
+        { "en": "Bacterial translocation", "ar": "انتقال البكتيريا" },
+        { "en": "Enteritis", "ar": "التهاب الأمعاء" },
+        { "en": "Diarrhea", "ar": "الإسهال" }
+      ],
+      "estimated_hours": 8,
+      "learning_objectives": [
+        "Explain how loss of rapidly renewing crypt cells breaches the gut perimeter wall.",
+        "Describe bacterial translocation into the bloodstream during immune wipe.",
+        "Link gut-barrier failure to downstream systemic infection."
+      ],
+      "resource_urls": [
+        { "title": "Feline Panleukopenia (Digestive System)", "provider": "MSD Veterinary Manual", "url": "https://www.msdvetmanual.com/digestive-system/infectious-diseases-of-the-gastrointestinal-tract-in-small-animals/feline-panleukopenia", "type": "reference" },
+        { "title": "Feline Infectious Enteritis (Parvovirus / Panleukopenia Virus)", "provider": "International Cat Care", "url": "https://icatcare.org/articles/feline-infectious-enteritis-feline-parvovirus-panleukopenia-virus", "type": "article" },
+        { "title": "Leukogram Abnormalities", "provider": "Merck Veterinary Manual", "url": "https://www.merckvetmanual.com/circulatory-system/leukocyte-disorders/leukogram-abnormalities", "type": "reference" }
+      ]
+    },
+    {
+      "phase_id": 2,
+      "module_id": "2.5",
+      "module_title": "Cascade Failure: Systemic Sepsis & Liver Shutdown",
+      "engineering_analogue": "Uncontained fault propagation — a body-wide inflammatory storm that starves downstream organs.",
+      "bilingual_keywords": [
+        { "en": "Sepsis", "ar": "الإنتان" },
+        { "en": "Septic shock", "ar": "الصدمة الإنتانية" },
+        { "en": "Liver failure", "ar": "فشل الكبد" },
+        { "en": "Disseminated intravascular coagulation (DIC)", "ar": "التخثر المنتشر داخل الأوعية" }
+      ],
+      "estimated_hours": 10,
+      "learning_objectives": [
+        "Trace bacterial translocation to systemic sepsis and distributive shock.",
+        "Explain endotoxin overload of the liver detox daemon and its shutdown.",
+        "Describe DIC as consumption of the platelet leak-sealing subsystem."
+      ],
+      "resource_urls": [
+        { "title": "Initial Triage and Resuscitation of Small Animal Emergency Patients", "provider": "Merck Veterinary Manual", "url": "https://www.merckvetmanual.com/emergency-medicine-and-critical-care/evaluation-and-initial-treatment-of-small-animal-emergency-patients/initial-triage-and-resuscitation-of-small-animal-emergency-patients", "type": "reference" },
+        { "title": "Overview of Fluid Therapy in Animals", "provider": "Merck Veterinary Manual", "url": "https://www.merckvetmanual.com/emergency-medicine-and-critical-care/fluid-therapy/overview-of-fluid-therapy", "type": "reference" },
+        { "title": "Overview of Leukocyte Disorders in Animals", "provider": "Merck Veterinary Manual", "url": "https://www.merckvetmanual.com/circulatory-system/leukocyte-disorders/overview-of-leukocyte-disorders-in-animals", "type": "reference" }
+      ]
+    },
+    {
+      "phase_id": 3,
+      "module_id": "3.1",
+      "module_title": "The Deterministic Triage Loop",
+      "engineering_analogue": "The master control flow — an ordered, gated loop where each check gates the next.",
+      "bilingual_keywords": [
+        { "en": "Triage", "ar": "الفرز" },
+        { "en": "Field triage", "ar": "الفرز الميداني" },
+        { "en": "Emergency assessment", "ar": "التقييم الطارئ" },
+        { "en": "Veterinary handoff", "ar": "التحويل للطبيب البيطري" }
+      ],
+      "estimated_hours": 4,
+      "learning_objectives": [
+        "Execute the A → B → T → C → F loop in strict order without skipping ahead.",
+        "Explain why each check gates the next, mirroring an airway-first protocol.",
+        "State the single exit condition: a clean handoff to a professional veterinarian."
+      ],
+      "resource_urls": [
+        { "title": "Initial Triage and Resuscitation of Small Animal Emergency Patients", "provider": "Merck Veterinary Manual", "url": "https://www.merckvetmanual.com/emergency-medicine-and-critical-care/evaluation-and-initial-treatment-of-small-animal-emergency-patients/initial-triage-and-resuscitation-of-small-animal-emergency-patients", "type": "reference" },
+        { "title": "Fluid Therapy in Animals", "provider": "Merck Veterinary Manual", "url": "https://www.merckvetmanual.com/emergency-medicine-and-critical-care/fluid-therapy/fluid-therapy-in-animals", "type": "reference" },
+        { "title": "Animal Welfare in the Clinic", "provider": "University of Edinburgh (Coursera)", "url": "https://www.coursera.org/learn/animal-welfare-in-the-clinic", "type": "course" }
+      ]
+    },
+    {
+      "phase_id": 3,
+      "module_id": "3.2",
+      "module_title": "Airway & Breathing Subsystem Check",
+      "engineering_analogue": "The I/O gas-exchange subsystem — verify the intake path before anything downstream.",
+      "bilingual_keywords": [
+        { "en": "Airway", "ar": "مجرى الهواء" },
+        { "en": "Breathing", "ar": "التنفس" },
+        { "en": "Respiratory distress", "ar": "ضائقة تنفسية" },
+        { "en": "Cyanosis", "ar": "الزُّراق" }
+      ],
+      "estimated_hours": 6,
+      "learning_objectives": [
+        "Assess airway patency and clear a visible obstruction safely.",
+        "Judge whether breathing is present and effective, and when to escalate.",
+        "Recognize cyanosis as an oxygenation-failure flag requiring immediate action."
+      ],
+      "resource_urls": [
+        { "title": "Initial Triage and Resuscitation of Small Animal Emergency Patients", "provider": "Merck Veterinary Manual", "url": "https://www.merckvetmanual.com/emergency-medicine-and-critical-care/evaluation-and-initial-treatment-of-small-animal-emergency-patients/initial-triage-and-resuscitation-of-small-animal-emergency-patients", "type": "reference" },
+        { "title": "Trauma in Emergency Medicine in Small Animals", "provider": "Merck Veterinary Manual", "url": "https://www.merckvetmanual.com/emergency-medicine-and-critical-care/specific-diagnostics-and-therapy/trauma-in-emergency-medicine-in-small-animals", "type": "reference" }
+      ]
+    },
+    {
+      "phase_id": 3,
+      "module_id": "3.3",
+      "module_title": "Thermal Defense: Hypo/Hyperthermia Management",
+      "engineering_analogue": "Thermal throttling — a system drifting out of safe operating temperature.",
+      "bilingual_keywords": [
+        { "en": "Body temperature", "ar": "درجة حرارة الجسم" },
+        { "en": "Hypothermia", "ar": "انخفاض حرارة الجسم" },
+        { "en": "Hyperthermia", "ar": "فرط الحرارة" },
+        { "en": "Warming", "ar": "التدفئة" }
+      ],
+      "estimated_hours": 6,
+      "learning_objectives": [
+        "Recognize hypothermia as the common collapsed-kitten failure mode.",
+        "Apply gradual external warming and avoid aggressive re-warming faults.",
+        "Withhold feeding from a hypothermic animal whose gut has shut down."
+      ],
+      "resource_urls": [
+        { "title": "Initial Triage and Resuscitation of Small Animal Emergency Patients", "provider": "Merck Veterinary Manual", "url": "https://www.merckvetmanual.com/emergency-medicine-and-critical-care/evaluation-and-initial-treatment-of-small-animal-emergency-patients/initial-triage-and-resuscitation-of-small-animal-emergency-patients", "type": "reference" },
+        { "title": "Cornell Feline Health Center", "provider": "Cornell University College of Veterinary Medicine", "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center", "type": "reference" },
+        { "title": "EDIVET: Animal Care", "provider": "University of Edinburgh (Coursera)", "url": "https://www.coursera.org/learn/becoming-a-veterinarian", "type": "course" }
+      ]
+    },
+    {
+      "phase_id": 3,
+      "module_id": "3.4",
+      "module_title": "Perfusion Debug: Capillary Refill Time via Gum Barriers",
+      "engineering_analogue": "Reading the status LED — the gum is a direct readout of circulatory plumbing pressure.",
+      "bilingual_keywords": [
+        { "en": "Capillary refill time", "ar": "زمن امتلاء الشعيرات الدموية" },
+        { "en": "Perfusion", "ar": "التروية" },
+        { "en": "Mucous membrane color", "ar": "لون الأغشية المخاطية" },
+        { "en": "Gums", "ar": "اللثة" }
+      ],
+      "estimated_hours": 6,
+      "learning_objectives": [
+        "Perform the gum blanch test and time refill against the <2-second baseline.",
+        "Map mucous-membrane color (pale, blue, brick-red, yellow) to system interpretation.",
+        "Decide when poor perfusion mandates shock management."
+      ],
+      "resource_urls": [
+        { "title": "Initial Triage and Resuscitation of Small Animal Emergency Patients", "provider": "Merck Veterinary Manual", "url": "https://www.merckvetmanual.com/emergency-medicine-and-critical-care/evaluation-and-initial-treatment-of-small-animal-emergency-patients/initial-triage-and-resuscitation-of-small-animal-emergency-patients", "type": "reference" },
+        { "title": "Overview of Fluid Therapy in Animals", "provider": "Merck Veterinary Manual", "url": "https://www.merckvetmanual.com/emergency-medicine-and-critical-care/fluid-therapy/overview-of-fluid-therapy", "type": "reference" },
+        { "title": "Cornell Feline Health Center", "provider": "Cornell University College of Veterinary Medicine", "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center", "type": "reference" }
+      ]
+    },
+    {
+      "phase_id": 3,
+      "module_id": "3.5",
+      "module_title": "Fluid Collapse & Shock Management to Professional Handoff",
+      "engineering_analogue": "Emergency power management — stabilize a collapsing system long enough to reach the real fix.",
+      "bilingual_keywords": [
+        { "en": "Shock", "ar": "الصدمة" },
+        { "en": "Dehydration", "ar": "الجفاف" },
+        { "en": "Hypovolemia", "ar": "نقص حجم الدم" },
+        { "en": "Fluid therapy", "ar": "العلاج بالسوائل" },
+        { "en": "Veterinary handoff", "ar": "التحويل للطبيب البيطري" }
+      ],
+      "estimated_hours": 8,
+      "learning_objectives": [
+        "Estimate dehydration percentage and compute the fluid deficit for the receiving veterinarian.",
+        "Recognize shock and conserve heat while preventing further fluid loss.",
+        "Produce a structured handoff report: baselines, deviations, interventions, computed deficit."
+      ],
+      "resource_urls": [
+        { "title": "Overview of Fluid Therapy in Animals", "provider": "Merck Veterinary Manual", "url": "https://www.merckvetmanual.com/emergency-medicine-and-critical-care/fluid-therapy/overview-of-fluid-therapy", "type": "reference" },
+        { "title": "Fluid Therapy in Animals", "provider": "Merck Veterinary Manual", "url": "https://www.merckvetmanual.com/emergency-medicine-and-critical-care/fluid-therapy/fluid-therapy-in-animals", "type": "reference" },
+        { "title": "Initial Triage and Resuscitation of Small Animal Emergency Patients", "provider": "Merck Veterinary Manual", "url": "https://www.merckvetmanual.com/emergency-medicine-and-critical-care/evaluation-and-initial-treatment-of-small-animal-emergency-patients/initial-triage-and-resuscitation-of-small-animal-emergency-patients", "type": "reference" },
+        { "title": "Feline Infectious Enteritis (Supportive Care & IV Fluids)", "provider": "International Cat Care", "url": "https://icatcare.org/articles/feline-infectious-enteritis-feline-parvovirus-panleukopenia-virus", "type": "article" }
+      ]
+    }
+  ],
+  "totals": {
+    "modules": 15,
+    "phase_hours": { "1": 36, "2": 48, "3": 30 },
+    "total_hours": 114
+  },
+  "global_resources": [
+    { "title": "WSAVA Global Vaccination Guidelines (2024)", "provider": "World Small Animal Veterinary Association", "url": "https://wsava.org/global-guidelines/vaccination-guidelines/", "type": "guideline" },
+    { "title": "2024 Guidelines for the Vaccination of Dogs and Cats (PDF)", "provider": "WSAVA Vaccination Guidelines Group", "url": "https://wsava.org/wp-content/uploads/2024/05/2024-Guidelines-for-the-Vaccination-of-Dogs-and-Cats.pdf", "type": "guideline" },
+    { "title": "The Truth About Cats and Dogs", "provider": "University of Edinburgh (Coursera)", "url": "https://www.coursera.org/learn/cats-and-dogs", "type": "course" },
+    { "title": "Animal Behaviour and Welfare", "provider": "University of Edinburgh (Coursera)", "url": "https://www.coursera.org/learn/animal-welfare", "type": "course" },
+    { "title": "RCVS Knowledge LEARN (Veterinary CPD)", "provider": "RCVS Knowledge", "url": "https://learn.rcvsknowledge.org/", "type": "reference" }
+  ]
+}

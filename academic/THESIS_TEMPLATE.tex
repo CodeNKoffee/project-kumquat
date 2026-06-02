@@ -1,0 +1,522 @@
+%==================================================================
+%  PROJECT KUMQUAT  --  THESIS_TEMPLATE.tex
+%  The Engineer's Blueprint for Veterinary Medicine & Stray Triage
+%  "Vet-level grounding for non-vets."
+%------------------------------------------------------------------
+%  COMPILE WITH : xelatex THESIS_TEMPLATE.tex   (run TWICE for TOC)
+%                 (lualatex also works)
+%  REQUIRES     : A Unicode TeX engine (XeLaTeX / LuaLaTeX) and an
+%                 Arabic-capable OpenType font. Default = Amiri (free).
+%                 Free alternatives: "Scheherazade New",
+%                 "Noto Naskh Arabic". Change the \newfontfamily line
+%                 below if Amiri is not installed.
+%------------------------------------------------------------------
+%  NOTE ON ARABIC RENDERING
+%  The project specification references arabtex. Under a modern Unicode
+%  engine the robust, equivalent system is polyglossia + fontspec, which
+%  renders native inline Arabic flawlessly via \textarabic{...} (wrapped
+%  here in the convenience macro \ar{...}). A legacy pdfLaTeX + arabtex
+%  fallback is documented in the comment block at the very bottom of
+%  this file.
+%==================================================================
+\documentclass[12pt,oneside]{book}
+
+%------------------------- Page geometry --------------------------
+\usepackage[a4paper,top=1in,bottom=1in,left=1.25in,right=1in,headheight=15pt]{geometry}
+
+%------------------------- Mathematics ----------------------------
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+%------------------------- Graphics & color -----------------------
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{textcomp}        % \textdegree and friends
+\usepackage{booktabs}        % professional tables
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{enumitem}        % tunable lists
+\usepackage{tcolorbox}       % callout boxes (engineering "panels")
+
+\definecolor{kumdeep}{HTML}{0B3D5C}    % deep system blue
+\definecolor{kumaccent}{HTML}{E08A2B}  % kumquat orange
+\definecolor{kumgrey}{HTML}{5B6770}
+\definecolor{kumpanel}{HTML}{F4F7F9}
+
+%------------------------- Headings (titlesec) --------------------
+\usepackage{titlesec}
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries\color{kumdeep}}
+  {\filright\large\sffamily\color{kumaccent}\MakeUppercase{Chapter \thechapter}}
+  {1ex}
+  {\titlerule[1.2pt]\vspace{1ex}\filright}
+\titlespacing*{\chapter}{0pt}{10pt}{26pt}
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{kumdeep}}{\thesection}{0.75em}{}
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\color{kumgrey}}{\thesubsection}{0.75em}{}
+
+%------------------------- Headers / footers ----------------------
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancyhead[L]{\small\sffamily\color{kumgrey}Project Kumquat}
+\fancyhead[R]{\small\sffamily\color{kumgrey}\leftmark}
+\fancyfoot[C]{\thepage}
+
+%------------------------- Hyperlinks -----------------------------
+%  (Load hyperref BEFORE polyglossia so bidi initialises last.)
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=kumdeep,
+  urlcolor=kumaccent,
+  citecolor=kumdeep,
+  pdftitle={The Engineer's Blueprint for Veterinary Medicine and Stray Triage},
+  pdfauthor={Project Kumquat Contributors},
+  pdfsubject={Veterinary systems architecture and field triage},
+  pdfkeywords={veterinary, triage, panleukopenia, systems engineering, rescue}
+}
+
+%------------------------- Multilingual ---------------------------
+%  polyglossia pulls in bidi for Arabic; keep it LAST among packages.
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setmainlanguage{english}
+\setotherlanguage{arabic}
+%  Swap "Amiri" below for any installed Arabic OpenType font.
+\newfontfamily\arabicfont[Script=Arabic]{Amiri}
+%  Convenience macro: inline Arabic inside English text.
+\newcommand{\ar}[1]{\textarabic{#1}}
+
+%------------------------- Reusable panel -------------------------
+\newtcolorbox{kumbox}[1]{
+  colback=kumpanel, colframe=kumdeep, coltitle=white,
+  fonttitle=\bfseries\sffamily, title={#1},
+  boxrule=0.6pt, arc=2pt, left=6pt, right=6pt, top=4pt, bottom=4pt}
+
+%==================================================================
+\begin{document}
+\frontmatter
+
+%------------------------- Title page -----------------------------
+\begin{titlepage}
+\centering
+\vspace*{1.2cm}
+{\sffamily\color{kumaccent}\large PROJECT KUMQUAT \quad$\cdot$\quad CODENAME KUMQUAT\par}
+\vspace{0.4cm}
+\rule{\linewidth}{1.2pt}\par
+\vspace{0.8cm}
+{\Huge\bfseries\color{kumdeep} The Engineer's Blueprint for\\[0.3cm] Veterinary Medicine \& Stray Triage\par}
+\vspace{0.6cm}
+{\Large\itshape A System-Architecture Approach to Biology\par}
+\vspace{0.3cm}
+{\large \textit{Vet-level grounding for non-vets}\par}
+\vspace{0.8cm}
+\rule{\linewidth}{0.5pt}\par
+\vspace{1.4cm}
+{\large A structured curriculum for field rescuers, wildlife emergency\\
+responders, and bio-engineers who require deterministic triage\\
+frameworks under pressure.\par}
+\vspace{1.6cm}
+{\large Feline Panleukopenia \quad \ar{طاعون القطط الفيروسي}\par}
+\vfill
+{\sffamily\color{kumgrey} In memory of Kumquat (Koki) --- the baseline that taught us the cost of latency.\par}
+\vspace{0.6cm}
+{\large 2026 \quad$\cdot$\quad CC-BY-SA-4.0\par}
+\end{titlepage}
+
+%------------------------- Disclaimer -----------------------------
+\chapter*{Disclaimer \& Scope}
+\addcontentsline{toc}{chapter}{Disclaimer \& Scope}
+\thispagestyle{fancy}
+
+\begin{kumbox}{GROUNDING GUARDRAIL}
+This document does \textbf{not} replace a licensed Doctor of Veterinary
+Medicine (DVM) degree, nor is it a casual pet-owner guide. It provides
+\emph{vet-level grounding for non-vets}. Every diagnostic path described
+here terminates at the same instruction: \textbf{stabilize, then hand off
+to a professional veterinarian}. Nothing in this work authorizes
+diagnosis, prescription, or surgery.
+\end{kumbox}
+
+\noindent This curriculum is engineered for individuals who require
+high-fidelity, academically grounded veterinary knowledge --- such as
+field rescuers, wildlife emergency responders, and bio-engineers ---
+without navigating a full clinical licensing array. It rejects dense,
+traditional medical literature in favour of a system-architecture model:
+the animal body is treated as an integrated hardware stack, organs are
+specialized sub-routines, the vascular network is fluid plumbing, and the
+immune system is a dynamic, multi-tier firewall. When a system goes down,
+we do not guess --- we debug.
+
+%------------------------- Acknowledgements -----------------------
+\chapter*{Acknowledgements}
+\addcontentsline{toc}{chapter}{Acknowledgements}
+\thispagestyle{fancy}
+
+Project Kumquat was born out of a critical baseline breakdown. When a
+tiny, vulnerable ginger kitten was rescued from an industrial zone, we
+encountered the unforgiving, hardcoded realities of nature: a fast-moving,
+hostile pathogen known as Feline Panleukopenia
+(\ar{طاعون القطط الفيروسي}). In the field, time translates directly to
+survival. Traditional veterinary resources are locked behind dense,
+academic text walls that fail to serve rescuers, software engineers, and
+logical problem-solvers who require deterministic triage frameworks under
+pressure. This project honors the memory of that tiny fighter, Kumquat
+(affectionately known as Koki). It rejects unstructured medical literature
+in favor of a System Architecture Approach to Biology. We treat the animal
+body as an integrated hardware stack: organs are specialized sub-routines,
+the vascular network is fluid plumbing, and the immune system is a
+dynamic, multi-tier fire-wall. When a system goes down, we do not
+guess---we debug.
+
+%------------------------- Abstract -------------------------------
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+\thispagestyle{fancy}
+
+This thesis presents a three-phase curriculum that re-frames foundational
+veterinary science, pathophysiology, and emergency triage through the
+lens of systems engineering. \textbf{Phase 1 (Foundational Systems
+Architecture)} establishes healthy operating parameters and the
+tissue-level production plants of the body --- bone marrow
+(\ar{نخاع العظم}), the lymphatic transit network
+(\ar{الجهاز اللمفاوي}), and localized filter checkpoints, the lymph nodes
+(\ar{عقدة ليمفاوية}). \textbf{Phase 2 (Pathophysiology \& System Fault
+Trees)} formalizes how viral, bacterial, and toxic payloads execute
+code-injection attacks that drive cellular degradation, immune wipe
+(Feline Panleukopenia, \ar{طاعون القطط الفيروسي}), gut-barrier breach,
+and secondary systemic sepsis with liver shutdown. \textbf{Phase 3 (Field
+Triage \& Runtime Debugging)} specifies a deterministic, step-by-step
+diagnostic loop covering airway and breathing, thermal defense, capillary
+refill time via the gum barrier, and fluid-collapse management prior to
+professional veterinary handoff. The combined study load is approximately
+114 hours. The document is bilingual: English is primary, with exact
+Arabic scientific terminology embedded inline throughout.
+
+\tableofcontents
+
+%==================================================================
+\mainmatter
+
+%------------------------- Chapter 1: Intro -----------------------
+\chapter{Introduction}
+
+\section{The Problem of Latency}
+In a field rescue, the gap between a correct decision and a guess is
+measured in minutes, and minutes are measured in lives. Conventional
+veterinary literature is optimized for the classroom and the clinic, not
+for a responder kneeling over a collapsing animal in an industrial lot.
+The information exists, but it is locked behind dense prose and assumes a
+reader who already holds a clinical license. Project Kumquat exists to
+close that gap with a deterministic, engineering-native framework.
+
+\section{The Core Abstraction: Biology as a Hardware Stack}
+We hold one mapping consistent across every chapter. Learn it once; reuse
+it everywhere.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{>{\bfseries}l l l}
+\toprule
+\textbf{Biological System} & \textbf{Engineering Analogue} & \textbf{Arabic} \\
+\midrule
+Bone marrow      & Cellular production plant (WBC factory) & \ar{نخاع العظم} \\
+Lymphatic system & Transit network / message bus           & \ar{الجهاز اللمفاوي} \\
+Lymph node       & Filter checkpoint / firewall node        & \ar{عقدة ليمفاوية} \\
+Immune system    & Dynamic, multi-tier firewall             & \ar{الجهاز المناعي} \\
+Vascular network & Fluid plumbing / pressurized pipework     & \ar{الجهاز الدوراني} \\
+Liver            & Detox \& waste-processing daemon          & \ar{الكبد} \\
+Gut barrier      & Perimeter wall / I/O membrane             & \ar{حاجز الأمعاء} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Method: We Debug, We Do Not Guess}
+Each phase of this curriculum maps onto a recognizable engineering
+discipline. Phase 1 is the \emph{specification sheet}: the documented,
+healthy operating parameters of the system. Phase 2 is \emph{root-cause
+analysis}: reading crash logs and constructing fault trees that trace a
+failure from ingress to systemic collapse. Phase 3 is \emph{runtime
+debugging}: a live, deterministic control loop executed under pressure,
+whose single exit condition is a clean handoff to a professional
+veterinarian.
+
+\section{How to Read This Document}
+Chapters proceed strictly in phase order. Do not skip the specification
+sheet --- a fault cannot be detected without a known-good baseline.
+Bilingual terminology is embedded inline so that a reader can cross
+reference English and Arabic clinical vocabulary without leaving the page.
+
+%------------------------- Chapter 2: Phase 1 ---------------------
+\chapter{Phase 1 --- Foundational Systems Architecture}
+
+\begin{kumbox}{PHASE 1 OBJECTIVE \quad ($\approx$ 36 study hours)}
+Establish the system specification: healthy operating parameters and the
+tissue-level production plants that manufacture and filter the body's
+cellular workforce. \textbf{Exit criterion:} recite normal baselines from
+memory and locate where each blood-cell line is produced and filtered.
+\end{kumbox}
+
+\section{The Hardware Stack Overview}
+Before any fault can be diagnosed, the responder must hold a block diagram
+of the healthy system: the major organ sub-routines, the pressurized
+plumbing that connects them, and the firewall that defends them. This
+module builds that top-level map and fixes the vocabulary used for the
+remainder of the curriculum.
+
+\section{Cellular Production Plants: Bone Marrow \texorpdfstring{(\ar{نخاع العظم})}{}}
+Bone marrow (\ar{نخاع العظم}) is the body's primary manufacturing plant.
+It produces the three critical cell lines:
+\begin{itemize}[leftmargin=2em]
+  \item \textbf{Red cells (erythrocytes)} --- the oxygen freight network.
+  \item \textbf{White cells (leukocytes)} --- the firewall's active
+        defenders. Their production rate is the single most important
+        number in Phase 2.
+  \item \textbf{Platelets (thrombocytes)} --- the automated leak-sealing
+        subsystem.
+\end{itemize}
+Because the marrow is a high-mitosis core (cells divide rapidly), it is
+also a \emph{high-value target} for any pathogen that hijacks cell
+division --- a vulnerability formalized in Chapter 3.
+
+\section{The Lymphatic Transit Network \texorpdfstring{(\ar{الجهاز اللمفاوي})}{}}
+The lymphatic system (\ar{الجهاز اللمفاوي}) is the body's secondary
+transit network: a one-way message bus that collects interstitial fluid,
+transports immune cells, and routes antigens to checkpoints for
+inspection. Unlike the pressurized vascular loop, it relies on muscular
+movement and one-way valves --- a low-pressure return bus running parallel
+to the main plumbing.
+
+\section{Localized Filter Checkpoints: Lymph Nodes \texorpdfstring{(\ar{عقدة ليمفاوية})}{}}
+Lymph nodes (\ar{عقدة ليمفاوية}) are the firewall's inspection
+checkpoints. Lymph is forced through each node, where resident immune
+cells screen it for foreign payloads. A reactive, enlarged node is a
+status flag: the checkpoint is actively processing a threat. Knowing the
+location of the major node clusters lets a responder read those flags on
+physical exam.
+
+\section{Healthy Operating Parameters}
+The specification sheet. These are the known-good baselines against which
+all Phase 3 faults are measured (feline values shown; canine ranges
+differ and are noted where relevant).
+
+\begin{center}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{l l l}
+\toprule
+\textbf{Parameter} & \textbf{Healthy range (feline)} & \textbf{Read-out} \\
+\midrule
+Core temperature   & 38.1--39.2\,\textdegree C (100.5--102.5\,\textdegree F) & Thermometer \\
+Heart rate         & 140--220 beats/min & Chest / femoral pulse \\
+Respiratory rate   & 20--30 breaths/min & Chest excursion \\
+Capillary refill   & $<$ 2 seconds & Gum blanch test \\
+Mucous membranes   & Pink, moist & Gum / inner-lip color \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent Neonatal kittens run hotter on heart rate and are far more
+vulnerable to thermal loss; a chilled kitten is a system already drifting
+out of spec.
+
+%------------------------- Chapter 3: Phase 2 ---------------------
+\chapter{Phase 2 --- Pathophysiology \& System Fault Trees}
+
+\begin{kumbox}{PHASE 2 OBJECTIVE \quad ($\approx$ 48 study hours)}
+Formalize how hostile payloads execute code-injection attacks and how a
+single breach cascades into total system failure. \textbf{Exit
+criterion:} trace any presenting symptom backward to its originating
+subsystem fault and forward to its downstream cascade.
+\end{kumbox}
+
+\section{The Threat Model: Three Payload Classes}
+All acute infectious and toxic insults reduce to three payload classes,
+each with a distinct attack signature.
+\begin{description}[leftmargin=2em,style=nextline]
+  \item[Viral payload (code injection) --- \ar{العدوى الفيروسية}]
+        Hijacks the host cell's own replication machinery to manufacture
+        copies of itself, destroying the host cell in the process.
+  \item[Bacterial payload (resource hijack) --- \ar{العدوى البكتيرية}]
+        Consumes host resources and releases endotoxins and exotoxins
+        that poison surrounding tissue.
+  \item[Toxic payload (corrosive input) --- \ar{السموم}]
+        Inflicts direct chemical damage on cell membranes and enzyme
+        systems; unlike the others, it does not replicate.
+\end{description}
+
+\section{Code-Injection Mechanics}
+A virus carries no factory of its own. It is, in effect, a malicious
+instruction set that must commandeer host hardware to run. It binds to a
+cell, injects its genetic payload, and redirects the cell's machinery to
+produce viral copies until the cell ruptures. Pathogens that depend on
+host cell division therefore preferentially attack the body's
+high-mitosis cores --- the same production plants catalogued in Phase 1.
+
+\section{Immune Wipe: Feline Panleukopenia \texorpdfstring{(\ar{طاعون القطط الفيروسي})}{}}
+Feline Panleukopenia (\ar{طاعون القطط الفيروسي}) is the archetypal
+immune-wipe attack and the founding case of this project. The virus
+targets the body's fastest-dividing cells simultaneously: the bone marrow
+(\ar{نخاع العظم}), the intestinal crypt cells, and lymphoid tissue. The
+result is \emph{panleukopenia} --- a collapse across all white-cell lines,
+the literal meaning of the name. The firewall does not merely weaken; its
+manufacturing plant goes offline.
+
+\begin{kumbox}{FAULT TREE A --- THE IMMUNE-WIPE CASCADE}
+\ttfamily\small
+INGRESS: FPV (fecal-oral)\\
+\quad $\downarrow$\\
+TARGET: high-mitosis cores (rapidly dividing cells)\\
+\quad $\downarrow$ \quad splits to three fronts:\\
+\quad [1] BONE MARROW  $\rightarrow$ WBC factory OFFLINE $\rightarrow$ panleukopenia\\
+\quad [2] GUT CRYPTS   $\rightarrow$ barrier BREACHED   $\rightarrow$ bacterial translocation\\
+\quad [3] LYMPHOID     $\rightarrow$ firewall DEPLETED   $\rightarrow$ no antibody response\\
+\quad $\downarrow$ \quad (three fronts converge)\\
+SYSTEMIC SEPSIS CASCADE\\
+\quad $\downarrow$\\
+MULTI-ORGAN FAULT / SHOCK: liver shutdown $\cdot$ DIC $\cdot$ death
+\end{kumbox}
+
+\section{Gut-Barrier Breach \& Bacterial Translocation \texorpdfstring{(\ar{حاجز الأمعاء})}{}}
+The intestinal lining is a perimeter wall (\ar{حاجز الأمعاء}) separating
+the body's sterile interior from a gut lumen densely populated with
+bacteria. When panleukopenia destroys the rapidly renewing cells that
+maintain this wall, it is breached. Gut bacteria translocate across the
+broken barrier into the bloodstream precisely when the white-cell
+firewall has gone offline --- an intrusion at the exact moment the defense
+grid is down.
+
+\section{Cascade Failure: Systemic Sepsis \& Liver Shutdown}
+Unchecked bacterial translocation drives \textbf{systemic sepsis}
+(\ar{الإنتان الجهازي}) --- a body-wide, dysregulated inflammatory storm.
+Blood pressure falls, perfusion fails, and downstream organs are starved.
+The liver (\ar{الكبد}), the body's detox daemon, is overwhelmed by
+endotoxin load and can shut down. Disseminated intravascular coagulation
+(DIC) consumes the platelet subsystem, and the animal slides into
+distributive and hypovolemic shock. This terminal cascade is what a
+Phase 3 responder is racing to interrupt.
+
+%------------------------- Chapter 4: Phase 3 ---------------------
+\chapter{Phase 3 --- Field Triage \& Runtime Debugging}
+
+\begin{kumbox}{PHASE 3 OBJECTIVE \quad ($\approx$ 30 study hours)}
+Execute a deterministic diagnostic loop on an animal in acute system
+failure. \textbf{Exit criterion:} run the full loop under time pressure
+and produce a clean, structured handoff for the receiving veterinarian.
+\textbf{Every branch converges on professional handoff.}
+\end{kumbox}
+
+\section{The Deterministic Triage Loop}
+The loop is intentionally ordered: each check gates the next, mirroring an
+airway-first emergency protocol. Run it top to bottom; do not jump ahead.
+
+\begin{enumerate}[leftmargin=2.4em,label=\textbf{\arabic*.}]
+  \item \textbf{[A] Airway (\ar{مجرى الهواء}).} Is the airway clear? If
+        not, clear the visible obstruction and re-check.
+  \item \textbf{[B] Breathing (\ar{التنفس}).} Is breathing present and
+        effective? If not, support ventilation and escalate immediately.
+  \item \textbf{[T] Temperature (\ar{الحرارة}).} In range? If too low
+        (the common kitten failure), begin gradual external warming; if
+        too high, begin controlled cooling.
+  \item \textbf{[C] Circulation / CRT (\ar{زمن امتلاء الشعيرات}).} Is
+        capillary refill under 2 seconds and are the gums pink? If not,
+        treat for shock and poor perfusion.
+  \item \textbf{[F] Fluid status (\ar{السوائل}).} Is the animal stable or
+        collapsing from fluid loss? Manage collapse and conserve heat.
+  \item \textbf{HANDOFF.} Transfer to a professional veterinarian with a
+        structured report of every reading above.
+\end{enumerate}
+
+\section{Thermal Defense}
+A collapsed kitten is most often a \emph{cold} kitten. Hypothermia slows
+every downstream system and must be corrected gradually --- aggressive,
+sudden re-warming is itself a fault condition. Warm the core, insulate
+against further loss, and never feed a hypothermic animal whose gut has
+shut down.
+
+\section{Perfusion Debug: Capillary Refill Time}
+The gum is a status LED for the circulatory plumbing. Press the mucous
+membrane until it blanches white, release, and count the seconds to
+re-perfusion.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{l l}
+\toprule
+\textbf{Gum / CRT read-out} & \textbf{System interpretation} \\
+\midrule
+Pink, refill $<$ 2 s        & Perfusion nominal \\
+Pale / white, refill $>$ 2 s & Poor perfusion, shock, or anemia \\
+Blue (cyanotic)             & Oxygenation failure --- escalate now \\
+Brick red                   & Hyperdynamic sepsis \\
+Yellow (icteric)            & Liver / red-cell breakdown \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Fluid-Collapse Management: The Deterministic Math}
+Fluid loss is quantifiable. A responder estimates the dehydration
+percentage from clinical signs, then computes the fluid deficit so the
+receiving veterinarian inherits a number, not a guess. Let $BW$ be body
+weight in kilograms and $D$ the estimated dehydration as a percentage:
+
+\begin{equation}
+  V_{\text{deficit}}\;[\text{mL}] \;=\; BW\;[\text{kg}] \;\times\; D\;[\%] \;\times\; 10 .
+\end{equation}
+
+\noindent The shock index gives a fast, single-number read on
+cardiovascular stability, where $\mathrm{HR}$ is heart rate and
+$\mathrm{SAP}$ is systolic arterial pressure:
+
+\begin{equation}
+  \mathrm{SI} \;=\; \frac{\mathrm{HR}}{\mathrm{SAP}} .
+\end{equation}
+
+\noindent A rising shock index signals a circulatory system trending
+toward collapse. Both figures belong in the handoff report.
+
+\begin{kumbox}{HANDOFF CONTRACT}
+The triage loop does not cure --- it buys time and produces data. The
+deliverable at the end of every run is a structured handoff: the
+known-good baselines, the observed deviations, the interventions applied,
+and the computed deficit. \textbf{Stabilize, document, hand off.}
+\end{kumbox}
+
+%------------------------- Back matter ----------------------------
+\backmatter
+\chapter{Closing Note}
+Project Kumquat treats biology as an engineering problem not to diminish
+its complexity, but to make that complexity survivable in the field. The
+framework is open and bilingual by design so that it can be taught,
+forked, and translated. It honors a tiny fighter, Koki, by ensuring the
+next responder has a loop to run instead of a guess to make.
+
+\begin{center}
+\vspace{1em}
+{\itshape\color{kumdeep}When a system goes down, we do not guess --- we debug.}\\[0.4em]
+{\sffamily\color{kumgrey} In memory of Kumquat (Koki) \quad \ar{طاعون القطط الفيروسي}}
+\end{center}
+
+\end{document}
+
+%==================================================================
+%  APPENDIX: LEGACY FALLBACK (pdfLaTeX + arabtex)
+%------------------------------------------------------------------
+%  If a Unicode engine is unavailable and you must use pdfLaTeX, the
+%  arabtex package can render Arabic from ASCII transliteration. Replace
+%  the multilingual block above with:
+%
+%     \usepackage[T1]{fontenc}
+%     \usepackage{arabtex}
+%     \usepackage{utf8}            % arabtex's own utf8 input layer
+%     \setcode{utf8}
+%     % inline usage:  \RL{\<...arabic transliteration...>}
+%
+%  NOTE: arabtex expects either transliterated input or its own utf8
+%  layer and does not consume native Unicode as cleanly as polyglossia.
+%  For "flawless inline Arabic," XeLaTeX/LuaLaTeX + polyglossia (the
+%  default configuration above) is strongly recommended.
+%==================================================================
