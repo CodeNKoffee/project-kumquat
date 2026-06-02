@@ -1,0 +1,33 @@
+# macOS
+.DS_Store
+.AppleDouble
+
+# Windows
+Thumbs.db
+
+# Node / npm
+node_modules/
+npm-debug.log*
+.npm/
+
+# Editor directories and files
+.vscode/
+.idea/
+*.sublime-workspace
+
+# Environment files
+.env
+.env.local
+
+# Logs
+*.log
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Build outputs
+dist/
+build/
+
