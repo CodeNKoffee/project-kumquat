@@ -80,6 +80,10 @@ Every asset in this project — Markdown, JSON, Notion schema, Marp slides, and 
 
 **Total estimated study load: ~114 hours.**
 
+![Project Kumquat Markmap screenshot](assets/project-kumquat-markmap-screenshot.png)
+
+<a href="assets/project-kumquat-markmap.html" target="_blank" rel="noopener noreferrer">Open the interactive Markmap in a new tab</a>
+
 ---
 
 ### 🟢 Phase 1 — Foundational Systems Architecture
